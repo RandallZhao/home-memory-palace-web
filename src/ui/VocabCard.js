@@ -22,6 +22,9 @@ export class VocabCard {
     this.mode = 'study';
     const state = getWordState(wordStates, word.id);
     const meta = STATE_META[state];
+    const dictionary = word.youdao || { status: 'loading' };
+    const ready = dictionary.status === 'ok';
+    const definitions = ready ? dictionary.definitions : [];
     this.root.innerHTML = `
       <article class="vocab-card study-card ${meta.className}">
         <div class="card-kicker">STUDY · 自动点亮</div>
@@ -29,13 +32,13 @@ export class VocabCard {
         <div class="word-state"><span>${meta.symbol}</span>${meta.label}</div>
         <h2>${escapeHtml(word.word)}</h2>
         <div class="pronunciation-grid">
-          <button type="button" data-accent="us"><span>🇺🇸 US · Q</span><strong>${word.ipaUS || '音标待补充'}</strong><small>TTS 合成发音</small></button>
-          <button type="button" data-accent="uk"><span>🇬🇧 UK · E</span><strong>${word.ipaUK || '音标待补充'}</strong><small>TTS 合成发音</small></button>
+          <button type="button" data-accent="us" ${ready ? '' : 'disabled'}><span>🇺🇸 美音 · Q</span><strong>${escapeHtml(ready ? dictionary.ipaUS || '有道未返回美式音标' : '正在查询…')}</strong><small>有道原声 · type=2</small></button>
+          <button type="button" data-accent="uk" ${ready ? '' : 'disabled'}><span>🇬🇧 英音 · E</span><strong>${escapeHtml(ready ? dictionary.ipaUK || '有道未返回英式音标' : '正在查询…')}</strong><small>有道原声 · type=1</small></button>
         </div>
-        <p class="meaning">${escapeHtml(word.meaning || '释义待补充')}</p>
-        <div class="source-path">${escapeHtml(word.sourcePath)}</div>
+        ${dictionaryMarkup(dictionary, definitions)}
+        <div class="source-path">数据来源：有道词典在线查询 · ${escapeHtml(word.sourcePath)}</div>
       </article>`;
-    this.root.querySelectorAll('[data-accent]').forEach((button) => button.addEventListener('click', () => this.onSpeak(word.word, button.dataset.accent)));
+    this.root.querySelectorAll('[data-accent]').forEach((button) => button.addEventListener('click', () => this.onSpeak(word, button.dataset.accent)));
   }
 
   showPractice(word, wordStates, round, isPlaceholder = false) {
@@ -86,6 +89,16 @@ export class VocabCard {
   clearFeedback() {
     this.feedback = null;
   }
+}
+
+function dictionaryMarkup(dictionary, definitions) {
+  if (dictionary.status === 'error') {
+    return `<div class="dictionary-error" role="status"><strong>有道词典查询失败</strong><span>${escapeHtml(dictionary.error || '未知错误')}</span><small>请检查网络或稍后重新进入该词汇。</small></div>`;
+  }
+  if (dictionary.status !== 'ok') {
+    return '<div class="dictionary-loading" role="status">正在在线查询有道词典…</div>';
+  }
+  return `<ul class="meaning meaning-list">${definitions.map((definition) => `<li>${escapeHtml(definition)}</li>`).join('')}</ul>`;
 }
 
 function escapeHtml(value) {

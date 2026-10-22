@@ -7,8 +7,8 @@
 - HOME 原图：1280×1280；运行时使用保留完整房间内容的 1207×824 裁边版。
 - 层级数据：12 个 Scene、85 个 Area、524 个词汇，全部来自 `Home.txt`。
 - Area/词汇图：609/609 个路径已匹配；606 张为原始 XMind 图裁片，3 张为原素材提取阶段生成的明确占位图。
-- 词典缓存：9 条可靠中文释义、14 条美音 IPA、13 条英音 IPA。
-- 本地真人音频：0；学习模式使用明确标注的浏览器 TTS 降级，练习模式完全禁用发音。
+- 词典数据：学习模式按需在线查询有道 `jsonapi`；优先读取 `individual.trs`，必要时读取同一响应中的 `ec.word.trs`。
+- 发音：由项目代理转发有道 `dictvoice` 原始音频；Q 为美音 `type=2`，E 为英音 `type=1`。项目不使用 TTS。
 
 完整清单见 `data/asset-report.json`，已知素材限制见 `KNOWN_ISSUES.md`。
 
@@ -21,19 +21,20 @@ npm install
 npm run dev
 ```
 
-开发服务器默认显示本地 URL。正式构建：
+开发服务器会同时启动网页与有道跨域代理，默认地址为 `http://127.0.0.1:4173/`。正式构建和启动：
 
 ```bash
 npm run build
+npm start
 ```
 
-构建产物位于 `dist/`。本项目使用 Vite；在 Windows 受限环境中配置了 `resolve.preserveSymlinks` 与关闭依赖自动发现，避免 pnpm 软链接越出项目根目录。
+构建产物位于 `dist/`。`npm start` 启动 `server.mjs`，同时提供静态文件与 `/api/youdao` 代理。因为在线词典依赖后端，不能直接双击 `index.html`，也不能只把 `dist/` 放到纯静态 GitHub Pages。
 
 ## 操作
 
 - `WASD` / 方向键：移动。
 - HOME 房间入口：`Space` 打开模式选择；`R` 进入学习，`F` 进入练习。
-- 学习模式：接近词汇自动点亮；`Q` / `E` 播放美式 / 英式浏览器 TTS。
+- 学习模式：接近词汇自动点亮并在线查询有道；`Q` 播放美式有道原声，`E` 播放英式有道原声。
 - 练习模式：接近后按 `F` 聚焦输入，`Enter` 提交；答错后 `F` 重试，或 `R` 将整个 Scene 切换为学习模式。
 - 场景核心：`Space` 返回 HOME。
 - Master Bedroom 床边：`G` 睡觉；Kitchen / Diningroom 餐点：`G` 进食。
@@ -70,6 +71,7 @@ npm run test:e2e
 ```text
 data/                    world.json、热点与素材报告
 public/assets/           HOME 地图、609 张条目图、字体与反馈音
+server/、server.mjs      有道响应解析、在线查询与音频跨域代理
 source_assets/           原始素材只读副本
 scripts/                 导入、校验与截图脚本
 src/app/                 输入、存档、游戏时钟和集中状态提交
@@ -84,4 +86,5 @@ tests/                   单元测试与 Edge 端到端测试
 - 单一存档键：`homeAtlas.save.v1`；损坏数据备份到 `homeAtlas.corrupt.v1`。
 - “新开世界”只移除本游戏存档，不调用 `localStorage.clear()`。
 - 若 2.5D 场景显示 WebGL 错误，请启用浏览器硬件加速并使用最新版 Chrome / Edge。
-- 若 TTS 无声，请确认系统安装了对应英语语音；游戏会继续运行，练习逻辑不受影响。
+- 若词卡提示“有道词典查询失败”，请确认电脑能联网，并且必须通过 `npm run dev` 或 `npm start` 启动，不要双击 HTML 文件。
+- 若原声无声，请先确认浏览器标签页未静音，再查看词卡是否已完成在线查询；失败时页面会显示明确提示，不会改用 TTS。

@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host 127.0.0.1 --configLoader runner",
+    "dev": "node server.mjs --dev",
+    "start": "node server.mjs",
     "build": "vite build --configLoader runner",
     "test": "vitest run --config vitest.config.js --configLoader runner",
     "test:watch": "vitest --config vitest.config.js --configLoader runner",

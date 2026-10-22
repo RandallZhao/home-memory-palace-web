@@ -18,7 +18,7 @@ export default defineConfig({
     use: { ...devices['Desktop Edge'], channel: 'msedge', viewport: { width: 1440, height: 900 } },
   }],
   webServer: {
-    command: `"${process.execPath}" node_modules/vite/bin/vite.js --host 127.0.0.1 --port 4173 --configLoader runner`,
+    command: `"${process.execPath}" server.mjs --dev --port 4173`,
     url: baseURL,
     reuseExistingServer: true,
     timeout: 30_000,

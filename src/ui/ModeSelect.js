@@ -12,7 +12,7 @@ export class ModeSelect {
     this.root.innerHTML = `<div class="modal-backdrop"><section class="modal mode-modal" role="dialog" aria-modal="true" aria-labelledby="mode-title">
       <span class="eyebrow">进入记忆房间</span><h2 id="mode-title">${scene.name}</h2><p>选择一种探索方式</p>
       <div class="mode-options">
-        <button type="button" data-mode="study"><kbd>R</kbd><strong>学习模式</strong><span>查看图文、音标与 TTS 发音</span></button>
+        <button type="button" data-mode="study"><kbd>R</kbd><strong>学习模式</strong><span>在线查询有道音标、释义与原声发音</span></button>
         <button type="button" data-mode="practice"><kbd>F</kbd><strong>练习模式</strong><span>只看图片，回忆英文拼写</span></button>
       </div>
       <button type="button" class="text-button" data-close>Esc · 暂不进入</button>

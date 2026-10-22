@@ -62,3 +62,23 @@ test('responsive layout remains usable at 1024px', async ({ page }) => {
   expect(box.width).toBeGreaterThan(400);
   expect(box.height).toBeGreaterThan(180);
 });
+
+test('study card loads live Youdao data and Q/E request US/UK audio separately', async ({ page }) => {
+  await finishOnboarding(page);
+  await page.evaluate(() => window.__HOME_ATLAS_DEBUG__.moveHomeTo('kitchen'));
+  await page.keyboard.press('Space');
+  await page.keyboard.press('r');
+  await page.evaluate(() => window.__HOME_ATLAS_DEBUG__.moveSceneToFirstWord());
+  await expect(page.locator('.study-card')).toContainText('数据来源：有道词典在线查询', { timeout: 20_000 });
+  await expect(page.locator('.dictionary-loading')).toHaveCount(0);
+  await expect(page.locator('[data-accent="us"]')).toBeEnabled();
+  await expect(page.locator('[data-accent="uk"]')).toBeEnabled();
+
+  const usResponse = page.waitForResponse((response) => response.url().includes('/api/youdao/voice') && response.url().includes('accent=us'));
+  await page.keyboard.press('q');
+  expect((await usResponse).status()).toBe(200);
+
+  const ukResponse = page.waitForResponse((response) => response.url().includes('/api/youdao/voice') && response.url().includes('accent=uk'));
+  await page.keyboard.press('e');
+  expect((await ukResponse).status()).toBe(200);
+});

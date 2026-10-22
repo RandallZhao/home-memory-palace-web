@@ -17,6 +17,7 @@ import { MiniMap } from './ui/MiniMap.js';
 import { ModeSelect } from './ui/ModeSelect.js';
 import { Onboarding } from './ui/Onboarding.js';
 import { VocabCard } from './ui/VocabCard.js';
+import { YoudaoDictionary } from './services/YoudaoDictionary.js';
 
 const app = document.querySelector('#app');
 app.innerHTML = `<div class="loading-screen"><div class="loader-orbit"><i></i><i></i><i></i><span>HA</span></div><p>正在整理 HOME 的灯光与词汇…</p><small>12 个房间 · 85 个区域 · 524 个词汇</small></div>`;
@@ -91,6 +92,8 @@ const miniMap = new MiniMap(document.querySelector('#minimap'));
 const home = new HomeCanvas(elements.homeCanvas, worldData, homePlayer, save.player.skin);
 const input = new InputManager(handleAction);
 const clock = new GameClock(save, () => hud.render(save, currentScene, mode));
+const youdao = new YoudaoDictionary();
+let currentPronunciation = null;
 
 window.addEventListener('resize', resize);
 window.addEventListener('beforeunload', persistPosition);
@@ -284,6 +287,7 @@ function changeActiveWord(word) {
       checkCompletion();
     }
     vocab.showStudy(word, save.wordStates, placeholder);
+    loadYoudao(word);
   } else {
     vocab.showPractice(word, save.wordStates, practiceRound, placeholder);
   }
@@ -342,8 +346,8 @@ function handleAction(code) {
   if (code === 'KeyG' && activeFeature?.kind === 'meal') { recoverMeal(); return; }
   if (mode === 'practice' && code === 'KeyF' && activeWord) vocab.focusInput();
   if (mode === 'practice' && code === 'KeyR' && practiceRound?.mistakeInRound) switchSceneToStudy();
-  if (mode === 'study' && activeWord && code === 'KeyQ') speakWord(activeWord.word, 'us');
-  if (mode === 'study' && activeWord && code === 'KeyE') speakWord(activeWord.word, 'uk');
+  if (mode === 'study' && activeWord && code === 'KeyQ') speakWord(activeWord, 'us');
+  if (mode === 'study' && activeWord && code === 'KeyE') speakWord(activeWord, 'uk');
 }
 
 function switchSceneToStudy() {
@@ -353,7 +357,10 @@ function switchSceneToStudy() {
   saveManager.save(save);
   const word = activeWord;
   practiceRound = null;
-  if (word) vocab.showStudy(word, save.wordStates, isPlaceholder(word));
+  if (word) {
+    vocab.showStudy(word, save.wordStates, isPlaceholder(word));
+    loadYoudao(word);
+  }
   hud.render(save, currentScene, mode);
   showNotice('整个场景已切换为学习模式', 'gold');
 }
@@ -468,16 +475,32 @@ function showNotice(message, type = 'info') {
   setTimeout(() => notice.remove(), 2600);
 }
 
+async function loadYoudao(word) {
+  if (word.youdao?.status === 'ok' || word.youdao?.status === 'loading') return;
+  word.youdao = { status: 'loading' };
+  if (mode === 'study' && activeWord?.id === word.id) vocab.showStudy(word, save.wordStates, isPlaceholder(word));
+  try {
+    word.youdao = { status: 'ok', ...(await youdao.lookup(word.word)) };
+  } catch (error) {
+    word.youdao = { status: 'error', error: error.message };
+  }
+  if (mode === 'study' && activeWord?.id === word.id) vocab.showStudy(word, save.wordStates, isPlaceholder(word));
+}
+
 function speakWord(word, accent) {
-  if (mode !== 'study' || !activeWord || !('speechSynthesis' in window)) return;
-  speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(word);
-  utterance.lang = accent === 'uk' ? 'en-GB' : 'en-US';
-  const voices = speechSynthesis.getVoices();
-  utterance.voice = voices.find((voice) => voice.lang.toLowerCase().startsWith(utterance.lang.toLowerCase())) || null;
-  utterance.rate = 0.86;
-  speechSynthesis.speak(utterance);
-  showNotice(`${accent === 'uk' ? 'UK' : 'US'} · 浏览器 TTS 合成发音`, 'info');
+  if (mode !== 'study' || activeWord?.id !== word.id) return;
+  const dictionary = word.youdao;
+  const url = accent === 'uk' ? dictionary?.audioUK : dictionary?.audioUS;
+  if (dictionary?.status !== 'ok' || !url) {
+    showNotice(dictionary?.error || '有道发音尚未加载，请稍后再试', 'error');
+    return;
+  }
+  currentPronunciation?.pause();
+  currentPronunciation = new Audio(url);
+  currentPronunciation.addEventListener('error', () => showNotice(`${accent === 'uk' ? '英音' : '美音'}加载失败，请检查网络`, 'error'), { once: true });
+  currentPronunciation.play()
+    .then(() => showNotice(`${accent === 'uk' ? '英音' : '美音'} · 有道原声`, 'success'))
+    .catch((error) => showNotice(`有道发音播放失败：${error.message}`, 'error'));
 }
 
 function playSound(url, volume) {
