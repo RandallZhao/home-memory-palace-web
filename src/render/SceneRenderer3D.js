@@ -47,9 +47,9 @@ export class SceneRenderer3D {
   }
 
   addEnvironment() {
-    const ambient = new THREE.HemisphereLight(0xfff9e9, 0xb5c8be, 2.45);
+    const ambient = new THREE.HemisphereLight(0xfff9e9, 0xb5c8be, 1.65);
     this.scene.add(ambient);
-    const key = new THREE.DirectionalLight(0xffe3b3, 2.25);
+    const key = new THREE.DirectionalLight(0xffe3b3, 1.55);
     key.position.set(8, 22, 10);
     key.castShadow = true;
     key.shadow.mapSize.set(1024, 1024);

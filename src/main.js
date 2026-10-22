@@ -132,6 +132,14 @@ window.__HOME_ATLAS_DEBUG__ = {
     changeActiveWord(word);
     return word.id;
   },
+  moveSceneToWord(wordId) {
+    const word = layout?.areas.flatMap((area) => area.words).find((item) => item.id === wordId);
+    if (!word) return null;
+    scenePlayer.x = word.position.x;
+    scenePlayer.z = word.position.z;
+    changeActiveWord(word);
+    return word.id;
+  },
 };
 
 function finishOnboarding(player) {
