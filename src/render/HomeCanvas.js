@@ -70,14 +70,14 @@ export class HomeCanvas {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, rect.width, rect.height);
     const gradient = ctx.createRadialGradient(rect.width / 2, rect.height / 2, 20, rect.width / 2, rect.height / 2, rect.width * 0.7);
-    gradient.addColorStop(0, '#173640');
-    gradient.addColorStop(1, '#08161d');
+    gradient.addColorStop(0, '#f4f0e7');
+    gradient.addColorStop(1, '#dce7df');
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, rect.width, rect.height);
     if (this.image.complete && this.image.naturalWidth) {
       ctx.save();
-      ctx.shadowColor = 'rgba(0,0,0,.45)';
-      ctx.shadowBlur = 34;
+      ctx.shadowColor = 'rgba(32,48,54,.20)';
+      ctx.shadowBlur = 28;
       ctx.drawImage(this.image, this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
       ctx.restore();
     }
@@ -87,8 +87,10 @@ export class HomeCanvas {
       const y = this.bounds.y + hotspot.y * this.bounds.height;
       const active = this.activeScene?.id === scene.id;
       ctx.save();
-      ctx.strokeStyle = active ? '#ffe29a' : 'rgba(241,200,116,.24)';
-      ctx.fillStyle = active ? 'rgba(241,200,116,.16)' : 'rgba(241,200,116,.035)';
+      ctx.shadowColor = active ? 'rgba(232,185,88,.72)' : 'transparent';
+      ctx.shadowBlur = active ? 18 : 0;
+      ctx.strokeStyle = active ? '#e8b958' : 'rgba(66,127,121,.32)';
+      ctx.fillStyle = active ? 'rgba(232,185,88,.18)' : 'rgba(66,127,121,.045)';
       ctx.lineWidth = active ? 3 : 1.2;
       ctx.setLineDash(active ? [] : [4, 7]);
       ctx.beginPath();

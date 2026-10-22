@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 
 export const SKINS = {
-  amber: { name: '琥珀行囊', shirt: '#f7f0dc', pack: '#e7ad3c', scarf: '#d36c55' },
-  mint: { name: '薄荷远行', shirt: '#dff5ed', pack: '#56bfa7', scarf: '#f2c66f' },
+  amber: { name: '琥珀行囊', shirt: '#fff9e9', pack: '#e8b958', scarf: '#427f79' },
+  mint: { name: '薄荷远行', shirt: '#fff9e9', pack: '#9ac7bf', scarf: '#427f79' },
   violet: { name: '星暮漫游', shirt: '#ebe4f7', pack: '#9a82c8', scarf: '#6f9dcc' },
 };
 
@@ -11,7 +11,7 @@ export function drawCharacter2D(ctx, x, y, scale = 1, skinId = 'amber', walking 
   ctx.save();
   ctx.translate(x, y + (walking ? Math.sin(performance.now() / 90) * 1.4 : 0));
   ctx.scale(scale, scale);
-  ctx.fillStyle = 'rgba(4,12,16,.28)';
+  ctx.fillStyle = 'rgba(38,56,75,.20)';
   ctx.beginPath();
   ctx.ellipse(0, 14, 13, 5, 0, 0, Math.PI * 2);
   ctx.fill();
@@ -21,6 +21,12 @@ export function drawCharacter2D(ctx, x, y, scale = 1, skinId = 'amber', walking 
   ctx.fillStyle = skin.shirt;
   roundRect(ctx, -10, -9, 20, 22, 6);
   ctx.fill();
+  ctx.strokeStyle = '#427f79';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(-7, -7); ctx.lineTo(-4, 8);
+  ctx.moveTo(7, -7); ctx.lineTo(4, 8);
+  ctx.stroke();
   ctx.strokeStyle = '#31444a';
   ctx.lineWidth = 3;
   ctx.beginPath();
