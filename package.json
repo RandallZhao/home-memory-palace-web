@@ -1,0 +1,24 @@
+{
+  "name": "home-memory-palace-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --configLoader runner",
+    "build": "vite build --configLoader runner",
+    "test": "vitest run --config vitest.config.js --configLoader runner",
+    "test:watch": "vitest --config vitest.config.js --configLoader runner",
+    "test:e2e": "playwright test",
+    "capture": "node scripts/capture-screenshots.mjs",
+    "import:assets": "node scripts/import-sources.mjs",
+    "validate:assets": "node scripts/validate-assets.mjs"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "vite": "^7.1.12",
+    "vitest": "^3.2.4"
+  }
+}

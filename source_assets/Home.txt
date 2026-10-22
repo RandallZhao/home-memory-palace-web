@@ -1,0 +1,633 @@
+# Home
+## Cloakroom
+### Headwear
+- cap
+- hat
+- helmet
+- scarf
+- sun hat
+### Daily Wear
+- shirt
+- T-shirt
+- blouse
+- jeans
+- dress
+- coat
+- jacket
+- vest
+- uniform
+### Formal Wear
+- suit
+- tie
+- bow tie
+- dress shirt
+- evening dress
+### Accessories
+- belt
+- gloves
+- handbag
+- purse
+- wallet
+- watch
+- sunglasses
+- handkerchief
+### Footwear
+- boot
+- trainer
+- sandal
+- high heels
+- flat shoes
+- socks
+### Sports & Outdoors
+- swimming suit
+- tracksuit
+- sports shirt
+- shorts
+- football boot
+- rucksack
+- backpack
+### Final Check
+- floor mirror
+- clothes brush
+- shoehorn
+- clothes rack
+
+## Diningroom
+### Wash Station
+- water tap
+- hand basin
+- hand soap
+- hand towel
+- towel rack
+### Prep Area
+- knife
+- chopping board
+- mixing bowl
+- recipe
+- cook
+### Serve Area
+- dish
+- serving dish
+- dining table
+- tray
+### Dine Area
+- chair
+- place mat
+- napkin
+- wine glass
+- meal
+- dinner
+### Drink Area
+- bottle
+- soda water
+- grape juice
+- soy milk
+- lemonade
+### Dessert Area
+- dessert
+- cake
+- ice cream
+- fruit
+- sweet
+### Clear Area
+- rubbish bin
+- scrub sponge
+- cloth
+- dish liquid
+
+## Livingroom
+### Entry Zone
+- door
+- key
+- umbrella
+- shoe cabinet
+- doorbell
+- shoes
+### Conversation Area
+- sofa
+- cushion
+- coffee table
+- carpet
+- floor lamp
+- fan
+- air conditioning
+### Entertainment Area
+- television
+- speaker
+- remote control
+- radio
+- video game
+### Reading Nook
+- bookcase
+- armchair
+- lamp
+- magazines
+- window
+- curtain
+### Refreshment Bar
+- cup
+- mug
+- coffee
+- tea
+- cola
+- apple juice
+### Music Corner
+- piano
+- guitar
+- violin
+- drum
+### Display & Storage
+- cabinet
+- vase
+- photo frame
+- clock
+- fireplace
+- trophy
+- houseplant
+
+## Garden
+### Garage Area
+- car
+- bike
+- wheel
+- engine
+- tool box
+- metal shelf
+- motor oil
+### Lawn Center
+- grass
+- lawn
+- ground
+- sand
+- mower
+- hose
+- weed
+- rake
+### Flower Bed
+- flower
+- plant
+- seed
+- stem
+- bud
+- petal
+- soil
+- flower pot
+- leaf
+### Tree Grove
+- tree
+- branch
+- trunk
+- bark
+- root
+- shade
+- wood
+- nest
+### Sunshade Corner
+- sun umbrella
+- chairs
+- table
+- orange juice
+- picture book
+### Swimming Pool
+- pool
+- water
+- swimsuit
+- swimming cap
+- goggles
+- dive
+- slide
+### Doghouse Zone
+- dog
+- doghouse
+- kennel
+- leash
+- dog collar
+- pet bowl
+- bone
+### Exterior Structure
+- roof
+- wall
+- chimney
+- balcony
+- gate
+- fence
+- stairs
+- garage
+- entrance
+
+## Guest Bedroom
+### Greeting Spot
+- welcome card
+- present
+- drinks
+- chocolate
+- candy
+### Bag Station
+- suitcase
+- luggage rack
+- travel bag
+- wall hook
+- toiletry bag
+### Night Comfort
+- folding bed
+- sleeping bag
+- travel pillow
+- eye mask
+- earplugs
+### Travel Desk
+- map
+- guide
+- timetable
+- ticket
+- compass
+- flashlight
+- pocketknife
+- rope
+### Link Zone
+- WiFi
+- password
+- charger
+- plug
+- socket
+### Snack Tray
+- biscuit
+- tea bag
+- mineral water
+- instant coffee
+### Keepsake Corner
+- souvenir
+- photo
+- digital camera
+- painting
+- poster
+
+## Kitchen
+### Cooking Area
+- pan
+- pot
+- oven
+- rice cooker
+- gas stove
+- range hood
+- kettle
+### Sink Area
+- sink
+- faucet
+- dish soap
+- vegetable peeler
+- dish rack
+- dish sponge
+- dish cloth
+### Fridge Area
+- fridge
+- milk
+- egg
+- yoghurt
+- cheese
+### Countertop Area
+- microwave
+- salt
+- sugar
+- pepper
+- cooking oil
+- Chinese cleaver
+- cutting board
+### Ingredients Area
+- rice
+- bread
+- meat
+- fish
+- vegetable
+- garlic
+### Utensils Area
+- fork
+- spoon
+- chopsticks
+- bowl
+- plate
+- glass
+### Storage Area
+- cupboard
+- shelf
+- bin
+- basket
+- jar
+
+## Master Bedroom
+### Bed Area
+- bed
+- pillow
+- sheet
+- quilt
+- mattress
+- headboard
+- footboard
+### Bedhead Area
+- alarm clock
+- bedside lamp
+- book
+- glasses
+### Wardrobe Area
+- wardrobe
+- hanger
+- pyjamas
+- dressing gown
+- drawer
+- trousers
+- skirt
+### Dressing Area
+- vanity mirror
+- dressing table
+- hairbrush
+- necklace
+- ring
+- bracelet
+- earring
+### Relaxation Area
+- lounge chair
+- footstool
+- novel
+- blinds
+### Floor Area
+- rug
+- slippers
+- clothes basket
+- yoga mat
+- scale
+### Nursery Nook
+- cot
+- baby blanket
+- mobile
+- teddy bear
+- toy
+- baby clothes
+- baby monitor
+
+## Recreationroom
+### Ball Pit
+- plastic ball
+- play mat
+- soft ball
+- safety pad
+### Arcade Area
+- arcade machine
+- joystick
+- token
+- pinball
+- tetris
+- dart
+### Billiard Area
+- cue
+- chalk
+- triangle
+- pool table
+- billiard ball
+### Manga Cove
+- comic book
+- manga
+- bookmark
+- puzzle
+### Observation Lounge
+- telescope
+- star chart
+- 3D glasses
+- projector
+- sailing model
+- binoculars
+### Boardgame Island
+- board game
+- playing card
+- dice
+- checkers
+- dominoes
+- lego
+- mahjong
+### Gear Wall
+- gaming headset
+- controller
+- console
+- punch bag
+- skates
+- sportswear
+
+## Storeroom
+### Emergency Bunk
+- first aid kit
+- emergency blanket
+- emergency food
+- lantern
+- whistle
+### Refill Station
+- ink cartridge
+- toner
+- propane tank
+- power bank
+- rechargeable battery
+### Repair Station
+- hammer
+- screwdriver
+- wrench
+- pliers
+- nails
+- screws
+- tape measure
+### Hazard Zone
+- paint
+- pesticide
+- bleach
+- solvent
+### Vault Cabinet
+- safe box
+- marriage certificate
+- cash
+- passport
+- jewellery
+### Daily Access
+- lunch box
+- water bottle
+- sunscreen
+- raincoat
+- tote bag
+### Cleaning Port
+- vacuum cleaner
+- floor squeegee
+- cleaning caddy
+- dust mop
+- scrub brush
+
+## Studyroom
+### Computer Desk
+- computer
+- monitor
+- keyboard
+- mouse
+- desk lamp
+- office chair
+- laptop
+- mouse pad
+- headset
+### Writing Desk
+- desk
+- notebook
+- pen
+- pencil
+- eraser
+- ruler
+- notepad
+- calendar
+- desk mat
+### Bookshelf Area
+- bookshelf
+- dictionary
+- books
+- copybook
+- story
+- world map
+- globe
+- bookend
+### Stationery Drawer
+- pencil case
+- scissors
+- glue
+- tape
+- pencil sharpener
+- adhesive tape
+- glue stick
+- paper clip
+- stapler
+- sticky note
+### Printer Corner
+- printer
+- paper
+- ink
+- USB cable
+- scanner
+### Reading Chair
+- rocking chair
+- comic
+- blanket
+- bean bag
+- footrest
+### Supply Cabinet
+- file
+- folder
+- envelope
+- clipboard
+- planner
+- organizer
+- postcard
+- stamp
+- schoolbag
+
+## Virtual Reality
+### Play Zone
+- sensor
+- avatar
+- trampoline
+- swing
+- sandbox
+### Rest Zone
+- hammock
+- eye pillow
+- sleep mask
+- recliner
+- sofa bed
+### Supply Hub
+- nuts
+- canned food
+- instant noodles
+- seasoning
+- spatula
+- thermos
+### Social Learning
+- whiteboard
+- marker
+- lecture notes
+- textbook
+- microphone
+- webcam
+- staple
+### Storage Hub
+- storage box
+- label maker
+- zip bag
+- shelving unit
+- lock
+- inventory list
+### Prep Zone
+- hair gel
+- deodorant
+- lint roller
+- sewing kit
+- badge
+- name tag
+- sweater
+### Clean Zone
+- hand sanitizer
+- toilet cleaner
+- air purifier
+- paper towel
+- scrubber
+- drying rack
+
+## Washroom
+### Shower Area
+- shower
+- shower cap
+- bathroom shelves
+- bath towel
+- body wash
+- bath ball
+- shampoo
+- bathtub
+- shower curtain
+- drain
+- shower mat
+### Washbasin Area
+- washbasin
+- tap
+- liquid soap
+- towel
+- mirror
+- toothbrush
+- toothpaste
+- mouthwash
+- dental floss
+### Beauty Area
+- lipstick
+- comb
+- hairdryer
+- face cream
+- perfume
+- cotton swabs
+### Toilet Area
+- toilet
+- toilet paper
+- toilet brush
+- trash can
+- plunger
+- air freshener
+- detergent
+### Laundry Area
+- laundry basket
+- washing machine
+- softener
+- clothes
+- clotheshorse
+- washboard
+- washtub
+- washing powder
+### Supply Nook
+- soap
+- trash bag
+- disinfectant
+- tissue
+- bulb
+### Cleaning Station
+- mop
+- bucket
+- dustpan
+- sponge
+- cleaning spray
+- rubber gloves
+- clearing cloth
