@@ -123,6 +123,12 @@ export class SceneRenderer3D {
     const ring = new THREE.Mesh(ringGeometry, ringMaterial);
     ring.position.set(word.position.x, 0.055, word.position.z);
     this.scene.add(ring);
+    const innerRingGeometry = new THREE.RingGeometry(0.38, 0.42, 32);
+    innerRingGeometry.rotateX(-Math.PI / 2);
+    const innerRingMaterial = new THREE.MeshBasicMaterial({ color: STATE_COLORS[state], side: THREE.DoubleSide, transparent: true, opacity: 0.52 });
+    const innerRing = new THREE.Mesh(innerRingGeometry, innerRingMaterial);
+    innerRing.position.set(word.position.x, 0.058, word.position.z);
+    this.scene.add(innerRing);
     const poleGeometry = new THREE.CylinderGeometry(0.035, 0.05, 0.9, 8);
     const poleMaterial = new THREE.MeshStandardMaterial({ color: 0x9d8060, roughness: 0.82 });
     const pole = new THREE.Mesh(poleGeometry, poleMaterial);
@@ -131,8 +137,9 @@ export class SceneRenderer3D {
     const image = this.addImageBillboard(word.image, word.position, { width: 1.08, height: 0.8, y: 1.12 });
     const label = this.addLabel(word.word, { x: word.position.x, z: word.position.z }, { size: 0.3, color: '#26384b', y: 1.68 });
     label.visible = this.mode === 'study';
-    this.wordVisuals.set(word.id, { word, ring, ringMaterial, image, label });
-    this.disposables.push(ringGeometry, ringMaterial, poleGeometry, poleMaterial);
+    const badge = this.addLabel(STATE_META[state].symbol, { x: word.position.x + 0.5, z: word.position.z - 0.05 }, { size: 0.18, color: '#26384b', y: 0.68, accent: `#${STATE_COLORS[state].toString(16).padStart(6, '0')}` });
+    this.wordVisuals.set(word.id, { word, ring, ringMaterial, innerRing, innerRingMaterial, image, label, badge });
+    this.disposables.push(ringGeometry, ringMaterial, innerRingGeometry, innerRingMaterial, poleGeometry, poleMaterial);
   }
 
   addFeature(feature) {
@@ -191,23 +198,38 @@ export class SceneRenderer3D {
     const canvas = document.createElement('canvas');
     canvas.width = 512;
     canvas.height = 112;
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle = 'rgba(255,253,248,.95)';
-    ctx.beginPath(); ctx.roundRect(8, 8, 496, 96, 24); ctx.fill();
-    ctx.strokeStyle = accent; ctx.lineWidth = 4; ctx.stroke();
-    ctx.fillStyle = color;
-    ctx.font = '700 34px "Noto Sans SC", sans-serif';
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(text.length > 28 ? `${text.slice(0, 27)}…` : text, 256, 57);
+    this.drawLabelCanvas(canvas, text, color, accent);
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.SRGBColorSpace;
     const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: true });
     const sprite = new THREE.Sprite(material);
     sprite.position.set(position.x, y, position.z);
     sprite.scale.set(size * 4.2, size * 0.92, 1);
+    sprite.userData.labelCanvas = canvas;
+    sprite.userData.labelColor = color;
+    sprite.userData.labelAccent = accent;
     this.scene.add(sprite);
     this.disposables.push(texture, material);
     return sprite;
+  }
+
+  drawLabelCanvas(canvas, text, color, accent) {
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(255,253,248,.95)';
+    ctx.beginPath(); ctx.roundRect(8, 8, 496, 96, 24); ctx.fill();
+    ctx.strokeStyle = accent; ctx.lineWidth = 4; ctx.stroke();
+    ctx.fillStyle = color;
+    ctx.font = '700 34px "Noto Sans SC", sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    const safeText = String(text);
+    ctx.fillText(safeText.length > 28 ? `${safeText.slice(0, 27)}…` : safeText, 256, 57);
+  }
+
+  updateLabel(sprite, text, accent) {
+    sprite.userData.labelAccent = accent;
+    this.drawLabelCanvas(sprite.userData.labelCanvas, text, sprite.userData.labelColor, accent);
+    sprite.material.map.needsUpdate = true;
   }
 
   setMode(mode) {
@@ -219,7 +241,10 @@ export class SceneRenderer3D {
     const visual = this.wordVisuals.get(id);
     if (!visual) return;
     visual.ringMaterial.color.setHex(STATE_COLORS[state]);
+    visual.innerRingMaterial.color.setHex(STATE_COLORS[state]);
     visual.ring.scale.setScalar(1.18);
+    visual.innerRing.scale.setScalar(1.18);
+    this.updateLabel(visual.badge, STATE_META[state].symbol, `#${STATE_COLORS[state].toString(16).padStart(6, '0')}`);
   }
 
   setActiveWord(id) {
@@ -230,6 +255,7 @@ export class SceneRenderer3D {
       visual.image.scale.lerp(new THREE.Vector3(target, target, target), 0.3);
       visual.image.position.y += ((active ? 1.2 : 1.12) - visual.image.position.y) * 0.22;
       if (!active && visual.ring.scale.x > 1) visual.ring.scale.lerp(new THREE.Vector3(1, 1, 1), 0.22);
+      if (!active && visual.innerRing.scale.x > 1) visual.innerRing.scale.lerp(new THREE.Vector3(1, 1, 1), 0.22);
     }
   }
 
